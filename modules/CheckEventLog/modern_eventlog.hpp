@@ -2,6 +2,7 @@
 
 #include <handle.hpp>
 #include <Windows.h>
+#include <sal.h>
 
 namespace eventlog {
 	namespace api {
@@ -185,7 +186,7 @@ namespace eventlog {
 		typedef BOOL (WINAPI *tEvtNextPublisherId)(
 			EVT_HANDLE PublisherEnum,
 			DWORD PublisherIdBufferSize,
-			_Out_writes_to_opt_(PublisherIdBufferSize, *PublisherIdBufferUsed)
+			__out_ecount_part_opt(PublisherIdBufferSize, *PublisherIdBufferUsed)
 			LPWSTR PublisherIdBuffer,
 			_Out_ PDWORD PublisherIdBufferUsed
 			);
@@ -222,13 +223,13 @@ namespace eventlog {
 			EVT_HANDLE ResultSet,
 			LONGLONG Position,
 			EVT_HANDLE Bookmark,
-			_Reserved_ DWORD Timeout,           // currently must be 0
+			__reserved DWORD Timeout,           // currently must be 0
 			DWORD Flags
 			);
 
 		typedef EVT_HANDLE (WINAPI *tEvtCreateRenderContext)(
 			DWORD ValuePathsCount,
-			_In_reads_opt_(ValuePathsCount) LPCWSTR* ValuePaths,
+			LPCWSTR* ValuePaths,
 			DWORD Flags                         // EVT_RENDER_CONTEXT_FLAGS
 			);
 
@@ -237,7 +238,7 @@ namespace eventlog {
 			EVT_HANDLE Fragment,
 			DWORD Flags,                        // EVT_RENDER_FLAGS
 			DWORD BufferSize,
-			_Out_writes_bytes_to_opt_(BufferSize, *BufferUsed) PVOID Buffer,
+			__out_bcount_part_opt(BufferSize, *BufferUsed) PVOID Buffer,
 			_Out_ PDWORD BufferUsed,
 			_Out_ PDWORD PropertyCount
 			);
@@ -258,7 +259,7 @@ namespace eventlog {
 			PEVT_VARIANT Values,
 			DWORD Flags,
 			DWORD BufferSize,
-			_Out_writes_to_opt_(BufferSize, *BufferUsed) LPWSTR Buffer,
+			__out_ecount_part_opt(BufferSize, *BufferUsed) LPWSTR Buffer,
 			_Out_ PDWORD BufferUsed
 			);
 
