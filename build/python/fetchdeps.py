@@ -295,10 +295,10 @@ build['cryptopp'] = build_instruction(
 	[]
 	)
 build['gtest'] = build_instruction(
-	[],
+	['python.exe $$NSCP_SOURCE_ROOT$$/build/python/msdev-to-x.py $$MSVER$$'],
 	['cmd /c "cmake . -Dgtest_disable_pthreads=true -G "$$CMAKE_GENERATOR$$" & cmake . -Dgtest_disable_pthreads=true -G "$$CMAKE_GENERATOR$$" & exit /b0"'],
 	['cmd /c "cmake . -Dgtest_disable_pthreads=true -G "$$CMAKE_GENERATOR$$ Win64" & cmake . -Dgtest_disable_pthreads=true -G "$$CMAKE_GENERATOR$$ Win64" & exit /b0"'],
-	['msbuild gtest.sln /p:Configuration=Release', 'msbuild gtest.sln /p:Configuration=Debug']
+	['msbuild msvc\\gtest.sln /p:Configuration=Release', 'msbuild msvc\\gtest.sln /p:Configuration=Debug']
 	)
 
 boost_version = {}
